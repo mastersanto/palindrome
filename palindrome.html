@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Jorge Sandoval - Is or not palindrome?</title>
+		<style type="text/css">
+			#txt{
+				width: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<h1>Is or not palindrome?</h1>
+		<form id="palim-form">
+			<input id="txt" type="text">
+			<button id="btn">Result ></button>
+		</form>
+		<p>e.g. "Átale, demoníaco Caín, o me delata."</p>
+
+		<script type="text/javascript">
+
+			var btn = document.getElementById('btn'),
+				txt = document.getElementById('txt');
+
+			btn.onclick = function(event){
+				var sentence = txt.value;
+				if(sentence === ''){
+					alert('Please enter a sentence');
+				} else {
+					palindrome(sentence);
+				}
+				event.preventDefault();
+				event.stopPropagation();
+			};
+
+			function palindrome(txt){
+				
+				var exeptions = {
+					'á':'a',
+					'é':'e',
+					'í':'i',
+					'ó':'o',
+					'ú':'u',
+					'_':'',
+					'-':'',
+					'!':'',
+					'"':'',
+					'(':'',
+					')':'',
+					'?':'',
+					'¿':''
+				},
+					txt = txt.toLowerCase().replace(/[áéíóú\_\-\!\"\'\(\)\?\¿]/g, function(i) {
+					return exeptions[i];
+				}),
+					outString = txt.replace(/[`~!@#$%^&*()_|+\-= ¿?;:'",.<>\{\}\[\]\\\/]/gi, ''),
+					txtLength = outString.length - 1,
+					halfTxt = Math.floor(txtLength/2);
+
+				for(i=0; i<halfTxt; i++){
+					var lastChar = txtLength - i;
+					if(outString.charAt(i) != outString.charAt(lastChar)){
+						alert("This isn't a Palindrome, try again!");
+						return false;
+						break;
+					} else if (i==halfTxt-1) {
+						alert("Congrats, this is a Palindrome!");
+						return true;
+					}
+				}
+				return this;
+			}
+
+		</script>
+
+	</body>
+
+</html>
